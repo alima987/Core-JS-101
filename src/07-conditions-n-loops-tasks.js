@@ -192,8 +192,13 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  const charCounts = {};
+  [...str].forEach((char) => {
+    charCounts[char] = (charCounts[char] || 0) + 1;
+  });
+  const firstNonRepeatedChar = [...str].find((char) => charCounts[char] === 1);
+  return firstNonRepeatedChar || null;
 }
 
 
@@ -219,8 +224,12 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  const startSymbol = isStartIncluded ? '[' : '(';
+  const endSymbol = isEndIncluded ? ']' : ')';
+  const smallerNumber = Math.min(a, b);
+  const largerNumber = Math.max(a, b);
+  return `${startSymbol}${smallerNumber}, ${largerNumber}${endSymbol}`;
 }
 
 
@@ -236,8 +245,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 
@@ -253,8 +262,9 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  const reverseNum = num.toString().split('').reverse().join('');
+  return parseInt(reverseNum, 10);
 }
 
 
@@ -278,8 +288,17 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const digits = String(ccn).split('').map(Number);
+  const doubledDigits = digits.map((digit, index) => {
+    if ((digits.length - index) % 2 === 0) {
+      const doubled = digit * 2;
+      return doubled > 9 ? doubled - 9 : doubled;
+    }
+    return digit;
+  });
+  const sum = doubledDigits.reduce((acc, digit) => acc + digit, 0);
+  return sum % 10 === 0;
 }
 
 /**
@@ -296,8 +315,11 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  const sum = Array.from(String(num), Number).reduce((a, b) => a + b, 0);
+  if (sum > 9) {
+    return getDigitalRoot(sum);
+  } return sum;
 }
 
 
@@ -347,8 +369,17 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  let number = num;
+  if (number === 0) {
+    return '0';
+  }
+  let result = '';
+  while (number > 0) {
+    result = (number % n) + result;
+    number = Math.floor(number / n);
+  }
+  return result;
 }
 
 
@@ -387,8 +418,13 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  if (m1[0].length !== m2.length) {
+    throw new Error('Matrix dimensions are incompatible for multiplication.');
+  }
+  return m1.map((row) => m2[0]
+    .map((_, j) => row
+      .reduce((sum, val, k) => sum + val * m2[k][j], 0)));
 }
 
 
