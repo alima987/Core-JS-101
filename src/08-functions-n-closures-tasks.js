@@ -93,7 +93,7 @@ function getPolynom(...coefficients) {
 function memoize(func) {
   let cachedResult;
   let isCached = false;
-  return function () {
+  return function memo() {
     if (!isCached) {
       cachedResult = func();
       isCached = true;
@@ -178,7 +178,7 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 function partialUsingArguments(fn, ...args1) {
-  return function (...args2) {
+  return function part(...args2) {
     return fn(...args1, ...args2);
   };
 }
@@ -204,7 +204,7 @@ function partialUsingArguments(fn, ...args1) {
 function getIdGeneratorFunction(startFrom) {
   let id = startFrom;
 
-  return function () {
+  return function getId() {
     const currentId = id;
     id += 1;
     return currentId;
