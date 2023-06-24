@@ -458,11 +458,56 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  // Check rows
+  if (
+    (position[0][0] === position[0][1] && position[0][0] === position[0][2])
+    || (position[1][0] === position[1][1] && position[1][0] === position[1][2])
+    || (position[2][0] === position[2][1] && position[2][0] === position[2][2])
+  ) {
+    if (position[0][0] && position[0][0] === position[0][1] && position[0][0] === position[0][2]) {
+      return position[0][0]; // Return the winner in the row
+    }
+    if (position[1][0] && position[1][0] === position[1][1] && position[1][0] === position[1][2]) {
+      return position[1][0]; // Return the winner in the row
+    }
+    if (position[2][0] && position[2][0] === position[2][1] && position[2][0] === position[2][2]) {
+      return position[2][0]; // Return the winner in the row
+    }
+  }
+
+  // Check columns
+  if (
+    (position[0][0] === position[1][0] && position[0][0] === position[2][0])
+    || (position[0][1] === position[1][1] && position[0][1] === position[2][1])
+    || (position[0][2] === position[1][2] && position[0][2] === position[2][2])
+  ) {
+    if (position[0][0] && position[0][0] === position[1][0] && position[0][0] === position[2][0]) {
+      return position[0][0]; // Return the winner in the column
+    }
+    if (position[0][1] && position[0][1] === position[1][1] && position[0][1] === position[2][1]) {
+      return position[0][1]; // Return the winner in the column
+    }
+    if (position[0][2] && position[0][2] === position[1][2] && position[0][2] === position[2][2]) {
+      return position[0][2]; // Return the winner in the column
+    }
+  }
+
+  // Check diagonals
+  if (
+    (position[0][0] === position[1][1] && position[0][0] === position[2][2])
+    || (position[0][2] === position[1][1] && position[0][2] === position[2][0])
+  ) {
+    if (position[1][1] && position[0][0] === position[1][1] && position[0][0] === position[2][2]) {
+      return position[0][0]; // Return the winner in the diagonal
+    }
+    if (position[1][1] && position[0][2] === position[1][1] && position[0][2] === position[2][0]) {
+      return position[0][2]; // Return the winner in the diagonal
+    }
+  }
+
+  return undefined; // No winner found
 }
-
-
 module.exports = {
   getFizzBuzz,
   getFactorial,
