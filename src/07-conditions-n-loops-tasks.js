@@ -344,8 +344,26 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const openingBrackets = ['[', '(', '{', '<'];
+  const closingBrackets = [']', ')', '}', '>'];
+  const stack = [];
+  const chars = Array.from(str);
+  let index = 0;
+  while (index < chars.length) {
+    const char = chars[index];
+    if (openingBrackets.includes(char)) {
+      stack.push(char);
+    } else if (closingBrackets.includes(char)) {
+      const lastOpeningBracket = stack.pop();
+      const correspondingOpeningBracket = openingBrackets[closingBrackets.indexOf(char)];
+      if (lastOpeningBracket !== correspondingOpeningBracket) {
+        return false;
+      }
+    }
+    index += 1;
+  }
+  return stack.length === 0;
 }
 
 
@@ -398,7 +416,6 @@ function toNaryString(num, n) {
 function getCommonDirectoryPath(/* pathes */) {
   throw new Error('Not implemented');
 }
-
 
 /**
  * Returns the product of two specified matrixes.
@@ -459,54 +476,49 @@ function getMatrixProduct(m1, m2) {
  *
  */
 function evaluateTicTacToePosition(position) {
-  // Check rows
   if (
     (position[0][0] === position[0][1] && position[0][0] === position[0][2])
     || (position[1][0] === position[1][1] && position[1][0] === position[1][2])
     || (position[2][0] === position[2][1] && position[2][0] === position[2][2])
   ) {
     if (position[0][0] && position[0][0] === position[0][1] && position[0][0] === position[0][2]) {
-      return position[0][0]; // Return the winner in the row
+      return position[0][0];
     }
     if (position[1][0] && position[1][0] === position[1][1] && position[1][0] === position[1][2]) {
-      return position[1][0]; // Return the winner in the row
+      return position[1][0];
     }
     if (position[2][0] && position[2][0] === position[2][1] && position[2][0] === position[2][2]) {
-      return position[2][0]; // Return the winner in the row
+      return position[2][0];
     }
   }
-
-  // Check columns
   if (
     (position[0][0] === position[1][0] && position[0][0] === position[2][0])
     || (position[0][1] === position[1][1] && position[0][1] === position[2][1])
     || (position[0][2] === position[1][2] && position[0][2] === position[2][2])
   ) {
     if (position[0][0] && position[0][0] === position[1][0] && position[0][0] === position[2][0]) {
-      return position[0][0]; // Return the winner in the column
+      return position[0][0];
     }
     if (position[0][1] && position[0][1] === position[1][1] && position[0][1] === position[2][1]) {
-      return position[0][1]; // Return the winner in the column
+      return position[0][1];
     }
     if (position[0][2] && position[0][2] === position[1][2] && position[0][2] === position[2][2]) {
-      return position[0][2]; // Return the winner in the column
+      return position[0][2];
     }
   }
-
-  // Check diagonals
   if (
     (position[0][0] === position[1][1] && position[0][0] === position[2][2])
     || (position[0][2] === position[1][1] && position[0][2] === position[2][0])
   ) {
     if (position[1][1] && position[0][0] === position[1][1] && position[0][0] === position[2][2]) {
-      return position[0][0]; // Return the winner in the diagonal
+      return position[0][0];
     }
     if (position[1][1] && position[0][2] === position[1][1] && position[0][2] === position[2][0]) {
-      return position[0][2]; // Return the winner in the diagonal
+      return position[0][2];
     }
   }
 
-  return undefined; // No winner found
+  return undefined;
 }
 module.exports = {
   getFizzBuzz,
